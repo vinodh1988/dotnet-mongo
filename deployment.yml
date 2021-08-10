@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mongo-deployment
+  labels:
+    app: mongo
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: mongo
+  template:
+    metadata:
+      labels:
+        app: mongo
+    spec:
+      containers:
+      - name: mongo
+        image: azure678.azurecr.io/mongoservice:latest
+        env:
+        - name: MONGO_CONNECTION_STRING
+          value: "mongodb://mongo234:BwQdDqQDJCHBFRki9JBPA0mniVspyGkeYvQefyiXenhf5csdV0CiNa5nbU6OlyOc4XnleWLTJ2s2S7iVIYdHpQ==@mongo234.mongo.cosmos.azure.com:10255/?ssl=true&retrywrites=false&replicaSet=globaldb&maxIdleTimeMS=120000&appName=@mongo234@"
+        - name: MONGO_DATABASE_NAME
+          value: "BookstoreDb"
+        - name: MONGO_COLLECTION_NAME
+          value: "Books"
+        ports:
+        - containerPort: 80
